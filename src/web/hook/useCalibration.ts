@@ -16,14 +16,14 @@ const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time)
 interface CalibrationHooks {
     webgazer: any, 
     isWebgazerStarted: boolean;
-    onCalibrationComplete: () => void;
-    calculatePrecision: (storedPoints: any[],windowWidth: number, windowHeight: number ) => number;
+    handleCalibrationComplete: () => void;
+    calculatePrecision: (past50Array: [number[], number[]], windowWidth: number, windowHeight: number) => number
 }
 
 export const useCalibration = ({
     webgazer,
     isWebgazerStarted, 
-    onCalibrationComplete, 
+    handleCalibrationComplete, 
     calculatePrecision
 }: CalibrationHooks) => {
 
@@ -40,7 +40,8 @@ export const useCalibration = ({
         await Swal.fire({
             title: "Preparando Medição",
             text: "Mantenha o olhar fixo no ponto central. A medição começará em instantes.",
-            icon: 'info', showConfirmButton: false, 
+            icon: 'info', 
+            showConfirmButton: false, 
             timer: 5000, 
             timerProgressBar: true, 
             allowOutsideClick: false,
@@ -67,7 +68,7 @@ export const useCalibration = ({
             allowOutsideClick: false,
         }).then(result => {
             if (result.isConfirmed) {
-                onCalibrationComplete(); 
+                handleCalibrationComplete(); 
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 webgazer.clearData();
                 setCalibrationPoints({});
@@ -76,7 +77,7 @@ export const useCalibration = ({
                 setStage('initial'); 
             }
         });
-    }, [onCalibrationComplete, calculatePrecision]);
+    }, [handleCalibrationComplete, calculatePrecision]);
 
     const handleCalPointClick = (id: string) => {
 

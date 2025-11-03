@@ -7,12 +7,12 @@ import { Button } from '../../ui/button';
 import webgazer from "webgazer" 
 
 interface WebgazerCalibrationProps {
-  onCalibrationComplete: () => void;
-  calculatePrecision: (storedPoints: any[]) => number; 
+    handleCalibrationComplete: () => void;
+    calculatePrecision: (past50Array: [number[], number[]], windowWidth: number, windowHeight: number) => number
 }
 
 const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
-  onCalibrationComplete, 
+  handleCalibrationComplete, 
   calculatePrecision
 }) => {
     const { isWebgazerStarted } = useWebgazer({webgazer});
@@ -28,7 +28,7 @@ const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
     } = useCalibration({
         webgazer,
         isWebgazerStarted,
-        onCalibrationComplete,
+        handleCalibrationComplete,
         calculatePrecision,
     });
 

@@ -4,16 +4,17 @@ import { Label } from '../../ui/label';
 import { Input } from '../../ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../ui/card';
 import { Button } from '../../ui/button';
+import { FileData } from '@/web/types';
 
-interface FileData {
-  id: string;
-  name: string;
-  url: string; 
-  file: File; 
+
+
+interface CreateExperimentProps {
+  handleSetupComplete: () => void
+  fileList: FileData[];
+  setFileList: React.Dispatch<React.SetStateAction<FileData[]>>;
 }
 
-const CreateExperiment: FC = () => {
-  const [fileList, setFileList] = useState<FileData[]>([]);
+const CreateExperiment: FC<CreateExperimentProps> = ({handleSetupComplete, fileList, setFileList}) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -89,7 +90,7 @@ const CreateExperiment: FC = () => {
         </CardContent>
 
         <CardFooter className='flex'>
-            <Button className='w-full'> Iniciar </Button>
+            <Button className='w-full' onClick={handleSetupComplete}> Iniciar </Button>
         </CardFooter>
         </Card>
     </div>
