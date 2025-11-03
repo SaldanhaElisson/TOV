@@ -1,23 +1,7 @@
 {
-    "compilerOptions": {
-        "jsx": "react-jsx",
-
-        "strict": true,                    
-        "skipLibCheck": true,              
-        "forceConsistentCasingInFileNames": true,
-        "lib": ["DOM", "DOM.Iterable", "ES2022"], 
-        "types": ["vite/client"],          
-        "isolatedModules": true,          
-        "noEmit": true,
-
-        "module": "ESNext",
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "baseUrl": ".",
-        "paths": {
-            "@/*":[
-                "./src/*"
-            ]
-        } 
-    }
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
 }

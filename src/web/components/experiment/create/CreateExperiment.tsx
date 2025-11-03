@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import FilePreview from './FilePreview'; // O componente que acabamos de tipar
 import { Label } from '../../ui/label';
 import { Input } from '../../ui/input';
@@ -12,7 +12,7 @@ interface FileData {
   file: File; 
 }
 
-const CreateExperiment: React.FC = () => {
+const CreateExperiment: FC = () => {
   const [fileList, setFileList] = useState<FileData[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

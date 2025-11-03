@@ -1,4 +1,5 @@
 import CreateExperiment from './components/experiment/create/CreateExperiment'
+import WebgazerCalibration from "./components/experiment/calibration/WebgazerCalibration"
 import {ThemeProvider} from "./components/provider/theme/ThemeProvider"
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
     <>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="w-screen h-screen">
-        <CreateExperiment/>
+        <WebgazerCalibration/>
       </div>
     </ThemeProvider>
     </>
