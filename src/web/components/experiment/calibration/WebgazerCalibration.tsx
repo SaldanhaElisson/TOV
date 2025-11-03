@@ -66,12 +66,7 @@ const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
                         y={point.y}
                         clicks={calibrationPoints[point.id] || 0}
                         isDisabled={(calibrationPoints[point.id] || 0) >= CLICKS_REQUIRED}
-                        onClick={(id) => {
-                            const rect = document.getElementById(id)?.getBoundingClientRect();
-                            if (rect) {
-                                handleCalPointClick(id, rect.left + rect.width / 2, rect.top + rect.height / 2);
-                            }
-                        }}
+                        handleClick={handleCalPointClick}
                     />
                 ))}
 

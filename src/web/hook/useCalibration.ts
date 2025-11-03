@@ -17,7 +17,7 @@ interface CalibrationHooks {
     webgazer: any, 
     isWebgazerStarted: boolean;
     onCalibrationComplete: () => void;
-    calculatePrecision: (storedPoints: any[]) => number;
+    calculatePrecision: (storedPoints: any[],windowWidth: number, windowHeight: number ) => number;
 }
 
 export const useCalibration = ({
@@ -40,15 +40,21 @@ export const useCalibration = ({
         await Swal.fire({
             title: "Preparando Medição",
             text: "Mantenha o olhar fixo no ponto central. A medição começará em instantes.",
-            icon: 'info', showConfirmButton: false, timer: 500, timerProgressBar: true, allowOutsideClick: false,
+            icon: 'info', showConfirmButton: false, 
+            timer: 5000, 
+            timerProgressBar: true, 
+            allowOutsideClick: false,
         });
 
         webgazer.params.storingPoints = true;
         await sleep(5000);
         webgazer.params.storingPoints = false;
+        
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
         const past50 = webgazer.getStoredPoints();
-        const precision_measurement = calculatePrecision(past50);
+        const precision_measurement = calculatePrecision(past50, windowWidth, windowHeight);
         setAccuracy(precision_measurement);
         setStage('complete');
 
@@ -72,17 +78,16 @@ export const useCalibration = ({
         });
     }, [onCalibrationComplete, calculatePrecision]);
 
-    const handleCalPointClick = useCallback((id: string, clientX: number, clientY: number) => {
-        if (stage !== 'calibrating' || !webgazer) return;
-        
-        webgazer.recordScreenPosition(clientX, clientY, 'click');
+    const handleCalPointClick = (id: string) => {
 
+        if (stage !== 'calibrating' || !webgazer) return;
         setCalibrationPoints(prev => {
             const newClicks = (prev[id] || 0) + 1;
             const newPoints = { ...prev, [id]: newClicks };
 
             if (newClicks === CLICKS_REQUIRED) {
                 setPointCalibrateCount(prevCount => {
+
                     const newCount = prevCount + 1;
                     if (newCount >= CALIBRATION_POINTS.length) {
                         calcAccuracy();
@@ -92,7 +97,7 @@ export const useCalibration = ({
             }
             return newPoints;
         });
-    }, [stage, calcAccuracy]);
+    };
 
     const startCalibrationFlow = async () => {
         await webgazer.showPredictionPoints(true).showVideo(false)

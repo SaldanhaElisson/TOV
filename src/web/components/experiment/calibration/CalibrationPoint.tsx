@@ -6,10 +6,11 @@ interface CalibrationPointProps {
   y: number; 
   clicks: number; 
   isDisabled: boolean;
-  onClick: (id: string) => void;
+  handleClick: (id: string
+  ) => void;
 }
 
-const CalibrationPoint: React.FC<CalibrationPointProps> = ({ id, x, y, clicks, isDisabled, onClick }) => {
+const CalibrationPoint: React.FC<CalibrationPointProps> = ({ id, x, y, clicks, isDisabled, handleClick }) => {
   const isCalibrated = clicks >= 5;
 
   const opacity = isCalibrated ? 1 : (0.2 * clicks) + 0.2;
@@ -34,7 +35,7 @@ const CalibrationPoint: React.FC<CalibrationPointProps> = ({ id, x, y, clicks, i
     <button
       id={id}
       style={style}
-      onClick={() => onClick(id)}
+      onClick={() => { handleClick(id)} }
       disabled={isDisabled}
       aria-label={`Ponto de calibração ${id}`}
       className="Calibration"

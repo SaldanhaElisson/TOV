@@ -1,6 +1,8 @@
 import CreateExperiment from './components/experiment/create/CreateExperiment'
 import WebgazerCalibration from "./components/experiment/calibration/WebgazerCalibration"
 import {ThemeProvider} from "./components/provider/theme/ThemeProvider"
+import {calculatePrecision} from "./utils/caculatePrecision"
+
 
 function App() {
 
@@ -8,7 +10,7 @@ function App() {
     <>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="w-screen h-screen">
-        <WebgazerCalibration/>
+        <WebgazerCalibration calculatePrecision={calculatePrecision}/>
       </div>
     </ThemeProvider>
     </>
