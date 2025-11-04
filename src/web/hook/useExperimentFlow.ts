@@ -48,10 +48,9 @@ export const useExperimentFlow = ({ fileList, setFileList, webgazer}: Experiment
         setStage('calibration');
     };
 
-    const handleRestart = () => {
-        webgazer.clearData();
-        setStage('experiment_setup');
-        setFileList([])
+    const handleRestart = async () => {
+        await webgazer.clearData();
+        window.location.reload();
         
     };
 
