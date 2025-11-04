@@ -10,12 +10,11 @@ export const useWebgazer = ({webgazer}: WebgazerHookProps) => {
     const initializeWebgazer = useCallback(async () => {
         try{
         
-            await webgazer.setRegression('ridge')
+            await webgazer.setRegression("ridge")
             .showVideo(false)
             .saveDataAcrossSessions(false)
             .begin();
           
-
             await webgazer.showVideo(true).showPredictionPoints(false)
 
             var canvas = document.getElementById("plotting_canvas");

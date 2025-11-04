@@ -4,24 +4,37 @@ import {ThemeProvider} from "./components/provider/theme/ThemeProvider"
 import {calculatePrecision} from "./utils/caculatePrecision"
 import { useExperimentFlow } from './hook/useExperimentFlow';
 import { useState } from 'react';
-import { FileData } from '@/web/types';
+import { ExperimentResult, FileData } from '@/web/types';
+// @ts-ignore:
+import webgazer from "webgazer" 
+import ExperimentRun from './components/experiment/experimentRun/ExperimentRun';
+import { useExperimentDataExport } from '@/web/hook/useExperimentDataExport';
+import { useWebgazer } from './hook/useWebgazer';
+
 
 function App() {
     const [fileList, setFileList] = useState<FileData[]>([]);
     
-    const { stage, handleSetupComplete, handleCalibrationComplete } = useExperimentFlow({fileList});
+    const { isWebgazerStarted } = useWebgazer({ webgazer });
+    const { stage, handleSetupComplete, handleCalibrationComplete, handleRestart } = useExperimentFlow({fileList, setFileList, webgazer});
+    const { exportDataAndDownload } = useExperimentDataExport();
+
+    const handleExperimentComplete = (finalData: ExperimentResult[]) => {        
+        exportDataAndDownload(finalData, "webgazer_gaze_data");
+
+    };
 
     const renderContent = () => {
         switch (stage) {
             
             case 'experiment_setup':
-                return <CreateExperiment handleSetupComplete={handleSetupComplete} fileList={fileList} setFileList={setFileList} />; 
+                return <CreateExperiment  handleSetupComplete={handleSetupComplete} fileList={fileList} setFileList={setFileList} />; 
 
             case 'calibration':
-                return <WebgazerCalibration calculatePrecision={calculatePrecision}  handleCalibrationComplete={handleCalibrationComplete} />;
+                return <WebgazerCalibration  isWebgazerStarted={isWebgazerStarted} webgazer={webgazer} calculatePrecision={calculatePrecision}  handleCalibrationComplete={handleCalibrationComplete} />;
 
             case 'experiment_run':
-                return <p> aqui </p>;
+                return <ExperimentRun onRestartSetup={handleRestart} onExperimentComplete={handleExperimentComplete} webgazer={webgazer} fileList={fileList}/>;
         }
     };
 

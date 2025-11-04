@@ -34,9 +34,10 @@ export const useCalibration = ({
 
     const calcAccuracy = useCallback(async () => {
         if (!webgazer) return;
-        
+
         webgazer.removeMouseEventListeners();
-        
+        webgazer.showPredictionPoints(false)
+
         setStage('measuring');
 
         await Swal.fire({
@@ -81,6 +82,8 @@ export const useCalibration = ({
                 handleCalibrationComplete();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 webgazer.clearData();
+                webgazer.addMouseEventListeners();
+                webgazer.showPredictionPoints(true)
                 setCalibrationPoints({});
                 setPointCalibrateCount(0);
                 setAccuracy(null);
@@ -122,7 +125,13 @@ export const useCalibration = ({
             title: "Calibration",
             text: `Clique em cada um dos ${CALIBRATION_POINTS.length} pontos ${CLICKS_REQUIRED} vezes.`,
             showCancelButton: false,
-            confirmButtonText: "Confirmar"
+            confirmButtonText: "Confirmar",
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: `bg-primary text-primary-foreground hover:bg-primary/90 
+                inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2`,
+            }
+
         }).then(async result => {
             if (result.isConfirmed) {
                 setStage('calibrating');

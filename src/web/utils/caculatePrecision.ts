@@ -19,8 +19,6 @@ export function calculatePrecision(
   
   const averagePrecision = calculateAverage(precisionPercentages);
 
-  console.log(averagePrecision)
-
   return Math.round(averagePrecision);
 }
 
@@ -32,9 +30,6 @@ function calculatePrecisionPercentages(
   staringPointY: number
 ): number[] {
   
-
-    console.log("aaa", staringPointX, staringPointY)
-
   const precisionPercentages: number[] = [];
   const halfWindowHeight = windowHeight / 2;
 
@@ -54,7 +49,6 @@ function calculatePrecisionPercentages(
     precisionPercentages.push(precision);
   }
 
-  console.log(precisionPercentages)
   return precisionPercentages;
 }
 

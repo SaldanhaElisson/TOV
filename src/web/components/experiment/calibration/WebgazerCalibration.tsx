@@ -1,21 +1,22 @@
-import  { FC } from 'react';
-import CalibrationPoint from './CalibrationPoint'; 
-import { useWebgazer } from '../../../hook/useWebgazer'; 
+import { FC } from 'react';
+import CalibrationPoint from './CalibrationPoint';
 import { useCalibration } from '../../../hook/useCalibration';
 import { Button } from '../../ui/button';
-// @ts-ignore:
-import webgazer from "webgazer" 
 
 interface WebgazerCalibrationProps {
+    webgazer: any,
+    isWebgazerStarted: boolean,
     handleCalibrationComplete: () => void;
     calculatePrecision: (past50Array: [number[], number[]], windowWidth: number, windowHeight: number) => number
 }
 
 const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
-  handleCalibrationComplete, 
-  calculatePrecision
+    webgazer,
+    handleCalibrationComplete,
+    isWebgazerStarted,
+    calculatePrecision
 }) => {
-    const { isWebgazerStarted } = useWebgazer({webgazer});
+
 
     const {
         stage,
@@ -48,11 +49,11 @@ const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
 
     if (stage === 'calibrating' || stage === 'measuring') {
         return (
-            <div 
+            <div
                 className="webgazer-calibration-area w-screen h-screen absolute top-0 left-0 bg-black"
             >
                 <p className="absolute top-4 left-1/2 transform -translate-x-1/2 text-white z-10">
-                    {stage === 'calibrating' 
+                    {stage === 'calibrating'
                         ? `Clique no ponto (Concluídos: ${pointCalibrateCount} de ${CALIBRATION_POINTS.length})`
                         : "Mantendo Precisão. Olhe para o centro."
                     }
@@ -70,18 +71,18 @@ const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
                     />
                 ))}
 
-               {stage === 'measuring' && (
-                <Button 
-                    variant="ghost" 
-                    
-                    className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-red-600 z-1001 p-0 hover:bg-red-600 opacity-90 animate-pulse"
-                
-                    onClick={(e) => e.stopPropagation()}
-                    tabIndex={-1} 
-                    aria-label="Ponto de fixação central para medição"
-                />
-                    )}
-                </div>
+                {stage === 'measuring' && (
+                    <Button
+                        variant="ghost"
+
+                        className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-red-600 z-1001 p-0 hover:bg-red-600 opacity-90 animate-pulse"
+
+                        onClick={(e) => e.stopPropagation()}
+                        tabIndex={-1}
+                        aria-label="Ponto de fixação central para medição"
+                    />
+                )}
+            </div>
         );
     }
 

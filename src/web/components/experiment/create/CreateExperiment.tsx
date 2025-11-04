@@ -1,12 +1,10 @@
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
 import FilePreview from './FilePreview'; // O componente que acabamos de tipar
 import { Label } from '../../ui/label';
 import { Input } from '../../ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../ui/card';
 import { Button } from '../../ui/button';
 import { FileData } from '@/web/types';
-
-
 
 interface CreateExperimentProps {
   handleSetupComplete: () => void
@@ -42,12 +40,10 @@ const CreateExperiment: FC<CreateExperimentProps> = ({handleSetupComplete, fileL
     }
   };
 
-
   const handleRemoveFile = (idToRemove: string) => {
     
     setFileList(prev => prev.filter(item => item.id !== idToRemove));
   };
-
   
   return (
     <div className='w-screen h-screen flex justify-center items-center'> 
