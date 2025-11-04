@@ -6,8 +6,7 @@ interface CalibrationPointProps {
   y: number; 
   clicks: number; 
   isDisabled: boolean;
-  handleClick: (id: string
-  ) => void;
+  handleClick: (id: string) => void;
 }
 
 const CalibrationPoint: React.FC<CalibrationPointProps> = ({ id, x, y, clicks, isDisabled, handleClick }) => {
@@ -35,7 +34,8 @@ const CalibrationPoint: React.FC<CalibrationPointProps> = ({ id, x, y, clicks, i
     <button
       id={id}
       style={style}
-      onClick={() => { handleClick(id)} }
+      onClick={() => { 
+        handleClick(id)} }
       disabled={isDisabled}
       aria-label={`Ponto de calibração ${id}`}
       className="Calibration"
