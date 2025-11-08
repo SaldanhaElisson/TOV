@@ -9,7 +9,7 @@ const CALIBRATION_POINTS: CalPoint[] = [
     { id: 'Pt4', x: 10, y: 50 }, { id: 'Pt5', x: 90, y: 50 }, { id: 'Pt6', x: 10, y: 90 },
     { id: 'Pt7', x: 50, y: 90 }, { id: 'Pt8', x: 90, y: 90 }, { id: 'Pt9', x: 50, y: 10 },
 ];
-const CLICKS_REQUIRED = 5;
+const CLICKS_REQUIRED = 9;
 
 const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -81,7 +81,6 @@ export const useCalibration = ({
             if (result.isConfirmed) {
                 handleCalibrationComplete();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                webgazer.clearData();
                 webgazer.addMouseEventListeners();
                 webgazer.showPredictionPoints(true)
                 setCalibrationPoints({});
