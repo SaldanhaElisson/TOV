@@ -122,7 +122,7 @@ export const useCalibration = ({
 
         Swal.fire({
             title: "Calibration",
-            text: `Clique em cada um dos ${CALIBRATION_POINTS.length} pontos ${CLICKS_REQUIRED} vezes.`,
+            text: `Clique em cada um dos ${CALIBRATION_POINTS.length} pontos até que todos fiquem com a cor amarelo.`,
             showCancelButton: false,
             confirmButtonText: "Confirmar",
             buttonsStyling: false,
