@@ -5,8 +5,8 @@ Siga estas etapas para configurar e utilizar a aplicação:
 
 - [ ] Clonete o Repositório: Obtenha o código-fonte da aplicação clonando o repositório do GitHub no seguinte link: 
 
-```bas
-
+```bash
+    https://github.com/SaldanhaElisson/TOV.git
 ```
 
 - [ ] Crie a Imagem Docker: Construa a imagem Docker da aplicação a partir do código clonado
