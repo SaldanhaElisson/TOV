@@ -1,8 +1,6 @@
 import { ExperimentResult, FileData } from "@/web/types";
-import { useCallback } from "react"; // 🚨 Importa useCallback
 
 interface ExperimentActionProps {
-    currentIndex: number;
     fileList: FileData[];
     isFinished: boolean;
     imageRef: React.RefObject<HTMLImageElement | null>;
@@ -11,23 +9,22 @@ interface ExperimentActionProps {
     onExperimentComplete: (data: ExperimentResult[]) => void;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
     setExperimentData: React.Dispatch<React.SetStateAction<ExperimentResult[]>>;
+    experimentData: ExperimentResult[],
+    currentImage: FileData
 }
 
 export const useExperimentAction = ({
-    currentIndex,
-    fileList,
-    isFinished,
     imageRef,
     gazeDataRef,
-    webgazer,
-    onExperimentComplete,
     setCurrentIndex,
     setExperimentData,
+    currentImage
 }: ExperimentActionProps) => {
-    
-    const captureAndAdvance = useCallback(() => {
 
-        if (isFinished || !imageRef.current) return;
+
+    const captureData = () => {
+
+        if (!imageRef.current) return;
 
         const imageElement = imageRef.current;
         const rect = imageElement.getBoundingClientRect();
@@ -39,44 +36,24 @@ export const useExperimentAction = ({
             y_screen: rect.top,
         };
 
-        const currentImage = fileList[currentIndex];
 
         const result: ExperimentResult = {
             imageName: currentImage.name,
             imageDimensions,
             gazeData: [...gazeDataRef.current],
+            timestamp: Date.now(),
         } as ExperimentResult;
 
-        let isLastImage = false;
 
-        setExperimentData(prevData => {
-            const newExperimentData = [...prevData, result];
-            
-            isLastImage = (currentIndex + 1) >= fileList.length;
-
-            if (isLastImage) {
-                webgazer.end();
-                onExperimentComplete(newExperimentData); 
-            }
-            return newExperimentData;
-        });
+        setExperimentData(prevData => [...prevData, result]);
 
         gazeDataRef.current = [];
-        if (!isLastImage) {
-            setCurrentIndex(prevIndex => prevIndex + 1);
-        }
 
-    }, [
-        currentIndex, 
-        isFinished, 
-        fileList, 
-        imageRef, 
-        gazeDataRef, 
-        webgazer, 
-        onExperimentComplete, 
-        setExperimentData, 
-        setCurrentIndex 
-    ]);
+        setCurrentIndex(prevIndex => prevIndex + 1);
+    };
 
-    return captureAndAdvance;
-};
+
+    return {
+        captureData,
+    };
+}

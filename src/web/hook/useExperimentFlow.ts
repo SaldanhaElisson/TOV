@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { FileData } from '@/web/types';
 import Swal from 'sweetalert2';
 
@@ -14,12 +14,11 @@ interface ExperimentFlow {
 
 interface ExperimentFlowProps {
     fileList: FileData[];
-    setFileList: React.Dispatch<React.SetStateAction<FileData[]>>;
     webgazer: any;
 
 }
 
-export const useExperimentFlow = ({ fileList, setFileList, webgazer}: ExperimentFlowProps): ExperimentFlow => {
+export const useExperimentFlow = ({ fileList, webgazer }: ExperimentFlowProps): ExperimentFlow => {
 
     const [stage, setStage] = useState<ExperimentStage>('experiment_setup');
 
@@ -51,7 +50,7 @@ export const useExperimentFlow = ({ fileList, setFileList, webgazer}: Experiment
     const handleRestart = async () => {
         await webgazer.clearData();
         window.location.reload();
-        
+
     };
 
     const handleCalibrationComplete = async () => {
@@ -82,7 +81,7 @@ export const useExperimentFlow = ({ fileList, setFileList, webgazer}: Experiment
             buttonsStyling: false,
             customClass: {
                 confirmButton: 'bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2',
-                htmlContainer: 'text-left' 
+                htmlContainer: 'text-left'
             }
         });
 

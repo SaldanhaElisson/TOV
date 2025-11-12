@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 
-export const useKeyboardNavigation = (key: string, callback: () => void) => {
+export const useKeyboardAdvance = (key: string, callback: () => void) => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
