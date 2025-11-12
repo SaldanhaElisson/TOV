@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import FilePreview from './FilePreview'; // O componente que acabamos de tipar
-import { Label } from '../../ui/label';
-import { Input } from '../../ui/input';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../ui/card';
-import { Button } from '../../ui/button';
+import { Label } from '@/web/components/ui/label';
+import { Input } from '@/web/components/ui/input';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/web/components/ui/card';
+import { Button } from '@/web/components/ui/button';
 import { FileData } from '@/web/types';
 import { ExperimentSettings } from '@/web/components/experiment/create/ExperimentSettings';
 import { useFileUploader } from '@/web/hook/useFileUploader';
+import { InformationsAboutEyeTracking } from './InformationsAboutEyeTracking';
 
 interface CreateExperimentProps {
   handleSetupComplete: () => void
@@ -18,60 +19,69 @@ interface CreateExperimentProps {
 
 const CreateExperiment: FC<CreateExperimentProps> = ({ handleSetupComplete, fileList, setFileList, setIsRandom, setIsFreeTime }) => {
 
+  const MAX_PREVIEWS = 12;
+
   const {
     handleFileChange,
     handleRemoveFile
   } = useFileUploader({ setFileList });
 
   return (
-    <div className='w-screen h-screen flex justify-center items-center'>
-      <Card className="text-white w-96 border rounded-lg">
+    <div>
+      <div className='h-screen flex justify-center items-center'>
 
-        <CardHeader >
-          <CardTitle className="justify-center items-center text-center text-2xl font-bold">TOV</CardTitle>
-        </CardHeader>
+        <Card className="text-white w-96 border rounded-lg">
 
-        <CardContent className='flex flex-col gap-5'>
+          <CardHeader >
+            <CardTitle className="items-start text-2xl font-bold"> TOV </CardTitle>
+          </CardHeader>
 
-          <div>
-            <Label htmlFor="picture" className="scroll-m-20 text-sm font-semibold tracking-tight mb-4">
-              Imagens do Experimento
-            </Label>
+          <CardContent className='flex flex-col gap-5'>
 
-            <Input
-              id="picture"
-              type="file"
-              multiple
-              onChange={handleFileChange}
-              className="mb-4"
-            />
+            <div>
+              <Label htmlFor="picture" className="scroll-m-20 text-sm font-semibold tracking-tight mb-4">
+                Imagens do Experimento
+              </Label>
 
-            {fileList.length > 0 && (
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {fileList.map((item) => (
-                  <FilePreview
-                    key={item.id}
-                    url={item.url}
-                    name={item.name}
+              <Input
+                id="picture"
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="mb-4"
+              />
 
-                    onRemove={() => handleRemoveFile(item.id)}
-                  />
-                ))}
-              </div>
-            )}
+              {fileList.length > 0 && (
+                <div className="mt-4 grid grid-cols-4 gap-2">
+                  {fileList
+                    .slice(0, MAX_PREVIEWS)
+                    .map((item) => (
+                      <FilePreview
+                        key={item.id}
+                        url={item.url}
+                        name={item.name}
+                        onRemove={() => handleRemoveFile(item.id)}
+                      />
+                    ))}
+                </div>
+              )}
 
-            {fileList.length === 0 && (
-              <p className="text-sm text-gray-400">Nenhuma imagem selecionada. Clique para adicionar.</p>
-            )}
-          </div>
+              {fileList.length === 0 && (
+                <p className="text-sm text-gray-400">Nenhuma imagem selecionada. Clique para adicionar.</p>
+              )}
+            </div>
 
-          <ExperimentSettings setIsRandom={setIsRandom} setIsFreeTime={setIsFreeTime} />
-        </CardContent>
+            <ExperimentSettings setIsRandom={setIsRandom} setIsFreeTime={setIsFreeTime} />
+          </CardContent>
 
-        <CardFooter className='flex'>
-          <Button className='w-full' onClick={handleSetupComplete}> Iniciar </Button>
-        </CardFooter>
-      </Card>
+          <CardFooter className='flex'>
+            <Button className='w-full' onClick={handleSetupComplete}> Iniciar </Button>
+          </CardFooter>
+        </Card>
+
+      </div>
+
+      <InformationsAboutEyeTracking />
     </div>
   );
 }

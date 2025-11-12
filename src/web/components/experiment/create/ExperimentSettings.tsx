@@ -18,7 +18,9 @@ export const ExperimentSettings: FC<ExperimentSettingsProps> = ({ setIsRandom, s
                     }
                 }}
                 />
-                <Label htmlFor="isRandomTrial"> Apresentar imagens em ordem aleatória. </Label>
+                <Label htmlFor="isRandomTrial">
+                    <a href="#random-section" className="border-b tracking-tight"> Apresentar imagens em ordem aleatória. </a>
+                </Label>
             </div>
 
 
@@ -32,7 +34,9 @@ export const ExperimentSettings: FC<ExperimentSettingsProps> = ({ setIsRandom, s
                     }
                 }} />
 
-                <Label htmlFor="isFreeTime"> Tempo de observação livre. </Label>
+                <Label htmlFor="isFreeTime">
+                    <a href="#observacao-livre-section" className="border-b tracking-tight">Tempo de observação livre.</a>
+                </Label>
             </div>
 
         </div >

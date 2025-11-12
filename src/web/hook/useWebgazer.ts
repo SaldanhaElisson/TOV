@@ -13,9 +13,8 @@ export const useWebgazer = ({ webgazer }: WebgazerHookProps) => {
             await webgazer.setRegression("ridge")
                 .showVideo(false)
                 .saveDataAcrossSessions(false)
+                .showPredictionPoints(false)
                 .begin();
-
-            await webgazer.showVideo(true).showPredictionPoints(false)
 
             var canvas = document.getElementById("plotting_canvas");
 

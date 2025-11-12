@@ -62,7 +62,7 @@ function App() {
 
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <div className="w-screen h-screen">
+            <div>
                 {renderContent()}
             </div>
         </ThemeProvider>

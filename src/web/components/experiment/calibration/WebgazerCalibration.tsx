@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import CalibrationPoint from './CalibrationPoint';
-import { useCalibration } from '../../../hook/useCalibration';
-import { Button } from '../../ui/button';
+import { useCalibration } from '@/web/hook/useCalibration';
+import { Button } from '@/web/components/ui/button';
 
 interface WebgazerCalibrationProps {
     webgazer: any,
@@ -34,6 +34,9 @@ const WebgazerCalibration: FC<WebgazerCalibrationProps> = ({
     });
 
     if (stage === 'initial') {
+
+        webgazer.showVideo(true).showPredictionPoints(false)
+
         return (
             <div className="text-white text-center p-8">
                 <h2 className="text-xl mb-4">Inicie a Calibração</h2>
