@@ -11,10 +11,10 @@ export const useGazeCollector = (webgazer: any, currentIndex: number) => {
             if (data == null) return;
 
             if (webgazer.util && webgazer.util.bound) {
-                webgazer.util.bound(data); 
+                webgazer.util.bound(data);
             }
 
-            const typedData = data as {x: number, y: number, t: number};
+            const typedData = data as { x: number, y: number, t: number };
 
             gazeDataRef.current.push({
                 x: typedData.x,

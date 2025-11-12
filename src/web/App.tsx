@@ -29,13 +29,35 @@ function App() {
         exportDataAndDownload(finalData, "webgazer_gaze_data");
     };
 
+    function shuffleArray<T>(array: T[]): T[] {
+        const shuffledArray = [...array];
+
+        let currentIndex = shuffledArray.length;
+        let randomIndex: number;
+
+        while (currentIndex !== 0) {
+
+
+            randomIndex = Math.floor(Math.random() * currentIndex);
+
+            currentIndex--;
+
+            [shuffledArray[currentIndex], shuffledArray[randomIndex]] = [
+                shuffledArray[randomIndex], shuffledArray[currentIndex]
+            ];
+        }
+
+        return shuffledArray;
+    }
+
     const renderContent = () => {
         switch (stage) {
 
             case 'experiment_setup':
                 return <CreateExperiment
                     handleSetupComplete={handleSetupComplete}
-                    fileList={fileList} setFileList={setFileList}
+                    fileList={fileList}
+                    setFileList={setFileList}
                     setIsRandom={setIsRandom}
                     setIsFreeTime={setIsFreeTime}
                 />;
@@ -53,7 +75,7 @@ function App() {
                     onRestartSetup={handleRestart}
                     onExperimentComplete={handleExperimentComplete}
                     webgazer={webgazer}
-                    fileList={fileList}
+                    fileList={isRandom ? shuffleArray(fileList) : fileList}
                     isRandom={isRandom}
                     isFreeTime={isFreeTime}
                 />;

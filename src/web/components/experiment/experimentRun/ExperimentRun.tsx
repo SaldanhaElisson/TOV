@@ -15,12 +15,12 @@ interface ExperimentRunProps {
 }
 
 const MAX_IMAGE_STYLE: React.CSSProperties = {
-    maxWidth: '90%',
-    maxHeight: '90vh',
+    width: '90%',
+    height: '90vh',
     marginTop: '30px',
 };
 
-const ExperimentRun: FC<ExperimentRunProps> = ({ webgazer, fileList, onExperimentComplete, onRestartSetup, isRandom, isFreeTime }) => {
+const ExperimentRun: FC<ExperimentRunProps> = ({ webgazer, fileList, onExperimentComplete, onRestartSetup, isFreeTime }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -28,23 +28,17 @@ const ExperimentRun: FC<ExperimentRunProps> = ({ webgazer, fileList, onExperimen
 
     const imageRef = useRef<HTMLImageElement>(null);
 
+
     const currentImage = fileList[currentIndex];
     const isFinished = currentIndex > fileList.length - 1;
 
     const gazeDataRef = useGazeCollector(webgazer, currentIndex);
 
-    const shuffledOrOriginalList = isRandom
-        ? [...fileList].sort(() => Math.random() - 0.5)
-        : fileList;
 
 
     const { captureData } = useExperimentAction({
-        fileList: shuffledOrOriginalList,
-        isFinished,
         imageRef,
         gazeDataRef,
-        webgazer,
-        onExperimentComplete,
         setCurrentIndex,
         setExperimentData,
         experimentData,

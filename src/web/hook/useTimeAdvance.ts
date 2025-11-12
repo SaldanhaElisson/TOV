@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const DEFAULT_TIME_LIMIT_MS = 10000;
+const DEFAULT_TIME_LIMIT_MS = 30000;
 
 interface UseTimeAdvanceProps {
     isFreeTime: boolean;

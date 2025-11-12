@@ -4,11 +4,35 @@ import Swal from 'sweetalert2';
 interface CalPoint { id: string; x: number; y: number; }
 interface CalibrationState { [key: string]: number; }
 
+
+// const CALIBRATION_POINTS: CalPoint[] = [
+//     { id: 'Pt1', x: 50, y: 50 },
+//     { id: 'Pt2', x: 10, y: 10 },
+//     { id: 'Pt3', x: 90, y: 10 },
+//     { id: 'Pt4', x: 10, y: 50 },
+//     { id: 'Pt5', x: 90, y: 50 },
+//     { id: 'Pt6', x: 10, y: 90 },
+//     { id: 'Pt7', x: 50, y: 90 },
+//     { id: 'Pt8', x: 90, y: 90 },
+//     { id: 'Pt9', x: 50, y: 10 },
+
+//     { id: 'Pt10', x: 30, y: 30 },
+//     { id: 'Pt11', x: 70, y: 30 },
+//     { id: 'Pt12', x: 30, y: 70 },
+//     { id: 'Pt13', x: 70, y: 70 },
+
+//     { id: 'Pt14', x: 30, y: 50 },
+//     { id: 'Pt15', x: 70, y: 50 },
+
+//     { id: 'Pt16', x: 50, y: 70 },
+// ];
+
 const CALIBRATION_POINTS: CalPoint[] = [
     { id: 'Pt1', x: 50, y: 50 }, { id: 'Pt2', x: 10, y: 10 }, { id: 'Pt3', x: 90, y: 10 },
     { id: 'Pt4', x: 10, y: 50 }, { id: 'Pt5', x: 90, y: 50 }, { id: 'Pt6', x: 10, y: 90 },
     { id: 'Pt7', x: 50, y: 90 }, { id: 'Pt8', x: 90, y: 90 }, { id: 'Pt9', x: 50, y: 10 },
 ];
+
 const CLICKS_REQUIRED = 9;
 
 const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));

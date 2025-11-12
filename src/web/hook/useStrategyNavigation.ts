@@ -15,8 +15,6 @@ export const useStrategyNavigation = ({
     timeLimitMs,
 }: UseTrialAdvanceProps) => {
 
-    console.log("é livre", isFreeTime)
-
     if (isFreeTime) {
         useKeyboardAdvance('Space', onCaptureData);
     }

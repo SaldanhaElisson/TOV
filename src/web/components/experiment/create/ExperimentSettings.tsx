@@ -27,9 +27,7 @@ export const ExperimentSettings: FC<ExperimentSettingsProps> = ({ setIsRandom, s
             <div className="flex gap-4">
                 <Checkbox id="isFreeTime" onCheckedChange={(value) => {
 
-                    console.log(value)
                     if (value !== "indeterminate") {
-                        console.log("valor indeter", value)
                         setIsFreeTime(value)
                     }
                 }} />
